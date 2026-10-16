@@ -56,6 +56,17 @@ class Plan(Picture):
             person.order = po
             for e in person.lines:
                 self._print_activity(person, e)
+            self.print_person_description(person)
+    
+    def print_person_description(self, person):
+        x = self.m.MARGIN_LEFT + self.m.GUTTER
+        y = self.m.CLIENTH + self.m.PADDING
+        m = 300 # self.m.CLIENTW / self.m.PERSONS_COUNT
+        w = 50
+        x += (person.order -1) * m
+
+        self.rectangle(x, y, x + w, y + 30, fill=person.color)
+        self.text(x + w + 10, y, person.name, 25)
 
     def _print_activity(self, person, entry):
         activity_width = self.m.DAY_WIDTH / self.m.PERSONS_COUNT
