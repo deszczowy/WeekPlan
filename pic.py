@@ -56,12 +56,14 @@ class Picture:
             p2 = (self.m.MARGIN_LEFT + self.m.CLIENTW, self.m.MARGIN_TOP + y)
             points = [p1, p2]
             draw.line(points, fill="black", width=1)
-            self.text(p1[0], p1[1], "{0}:00".format(self.m.FIRST_HOUR_TIME + i), 30)
+            self.text(p1[0], p1[1], "{0}:00".format(self.m.FIRST_HOUR_TIME + i), 25)
 
-        for i in range(1,self.m.DAYS):
+        start_line = self.m.MARGIN_LEFT + self.m.GUTTER
+        
+        for i in range(0,self.m.DAYS):
             x = i * self.m.DAY_WIDTH
-            p1 = (self.m.MARGIN_LEFT + x, self.m.MARGIN_TOP)
-            p2 = (self.m.MARGIN_LEFT + x, self.m.CLIENTH)
+            p1 = (start_line + x, self.m.MARGIN_TOP)
+            p2 = (start_line + x, self.m.CLIENTH)
             points = [p1, p2]
             draw.line(points, fill="blue", width=1)
 

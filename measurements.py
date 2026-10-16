@@ -4,7 +4,7 @@ class Measurements:
         self.HEIGHT = height
         self.MARGIN_LEFT = 70
         self.MARGIN_TOP = 50
-        self.GUTTER = 30
+        self.GUTTER = 80
         self.PADDING = 5
         self.CLIENTW = self.WIDTH - (2 * self.MARGIN_LEFT)
         self.CLIENTH = self.HEIGHT - (2 * self.MARGIN_TOP)
@@ -29,7 +29,7 @@ class Measurements:
         self.PERSONS_COUNT = persons
         self.MINUTES_WHOLE_DAY = self.HOURS * 60
         self.MINUTE = self.CLIENTH / self.MINUTES_WHOLE_DAY
-        self.DAY_WIDTH = self.CLIENTW / self.DAYS
+        self.DAY_WIDTH = (self.CLIENTW - self.GUTTER) / self.DAYS
         self.ACTIVITY_WIDTH = self.DAY_WIDTH / self.PERSONS_COUNT
     
     def print(self):

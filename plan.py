@@ -60,7 +60,7 @@ class Plan(Picture):
     def _print_activity(self, person, entry):
         activity_width = self.m.DAY_WIDTH / self.m.PERSONS_COUNT
 
-        x1 = self.m.MARGIN_LEFT +self.m.PADDING + self.days_offsets[entry.weekday]  + (activity_width * (person.order-1))
+        x1 = self.m.MARGIN_LEFT + self.m.GUTTER + self.m.PADDING + self.days_offsets[entry.weekday]  + (activity_width * (person.order-1))
         y1 = self.m.MARGIN_TOP + (entry.offset(self.m.FIRST_HOUR_TIME) * self.m.MINUTE)
 
         x2 = x1  + activity_width - (2 * self.m.PADDING)
