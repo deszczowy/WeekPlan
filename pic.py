@@ -59,13 +59,24 @@ class Picture:
             self.text(p1[0], p1[1], "{0}:00".format(self.m.FIRST_HOUR_TIME + i), 25)
 
         start_line = self.m.MARGIN_LEFT + self.m.GUTTER
-        
+
         for i in range(0,self.m.DAYS):
             x = i * self.m.DAY_WIDTH
             p1 = (start_line + x, self.m.MARGIN_TOP)
             p2 = (start_line + x, self.m.CLIENTH)
             points = [p1, p2]
             draw.line(points, fill="blue", width=1)
+
+    def print_labels(self, days):
+        draw = ImageDraw.Draw(self.image)
+        start_line = self.m.MARGIN_LEFT + self.m.GUTTER
+
+        for i in range(0, self.m.DAYS):
+            xd = i * self.m.DAY_WIDTH
+            x = start_line + xd
+            y = 0
+            # print(days[i])
+            self.text(x, y,days[i], 40)
 
     def save(self):
         self.image.save(self.file_path)

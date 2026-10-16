@@ -12,6 +12,7 @@ class Plan(Picture):
         # Build the whole thing
         self.print_border()
         self.grid()
+        self.print_labels(self.schedule.week)
         self.build()
         # Save to file
         self.save()
