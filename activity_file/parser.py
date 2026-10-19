@@ -1,28 +1,40 @@
 from planner import Schedule
+from .reader import Reader
+from .validator import Validator, Rule
 
 
-class FileReader:
-    def __init__(self, file_path, schedule, logger):
+class Parser:
+
+    def __init__(self, file_path: str, schedule: Schedule, logger) -> None:
         self.schedule = schedule
         self.schedule.clear()
         self.file = file_path
         self.logger = logger
         self.lines = []
-        self.process()
 
-    def process(self) -> None:
-        self.get_file_lines()
-        if self.lines:
-            self.set_header()
-            self.set_data()
-        else:
-            self.logger.notice("No data in provided file was found.")
-    
-    def get_file_lines(self) -> None:
-        self.lines = []
-        with open(self.file, "r", encoding="utf-8") as file:
-            self.lines = [line.strip() for line in file]
-    
+    def parse(self) -> None:
+        if self.data_is_present():
+            if self.data_is_valid():
+                self.set_header()
+                self.set_data()
+                return True
+        return False
+
+    def data_is_present(self) -> bool:
+        return Reader(
+            self.file,
+            self.logger
+        ).get(self.lines)
+
+    def data_is_valid(self) -> bool:
+        errors = Validator().validate(self.lines)
+        if len(errors) > 0:
+            self.logger.notice("Incorrect input file")
+            for rule in errors:
+                self.logger.notice(rule.to_string())
+            return False
+        return True
+   
     def set_header(self) -> None:
         self.schedule.header = self.lines[0]
         self.logger.notice("Reading \"{0}\".".format(self.schedule.header))

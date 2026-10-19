@@ -1,5 +1,5 @@
 from planner import Schedule
-from filereader import FileReader
+from activity_file import Parser
 from plan import Plan
 from logger import Logger, LogLevel
 
@@ -18,10 +18,11 @@ class Wrapper:
         shedule = Schedule()
 
         # Reading input file
-        FileReader(input_file, shedule, logger)
+        result = Parser(input_file, shedule, logger).parse()
 
-        # Generating week plan print
-        Plan(self.output_file_name, shedule)
+        if result is True:
+            # Generating week plan print
+            Plan(self.output_file_name, shedule)
     
     def get_output_file(self, output_file) -> str:
         output = output_file
