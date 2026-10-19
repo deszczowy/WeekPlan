@@ -10,7 +10,7 @@ class Picture:
     def __init__(self, file_path, background="white"):
         self.m = Measurements(3508, 2408)
         self.file_path = file_path
-        self.font = "./noto-sans.regular.ttf"
+        self.font = "./res/noto-sans.regular.ttf"
         self.image = Image.new(
             "RGB",
             (self.m.WIDTH, self.m.HEIGHT),
