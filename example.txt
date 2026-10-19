@@ -1,0 +1,20 @@
+# Comment lines can be placed wherever You want, 
+# but plan title should be first valid line in file.
+
+# Empty line is not a valid line, so it does not count.
+Example Weekly Activities Plan
+[#7CB4EF|Anna
+MO|800|845|Gym
+# Pipe character "|" is entry fields separator, so please don't us it in entry description.
+TU|900|1015|Code, code, code!
+WE|855|940|Team meeting
+FR|1200|1300|Tennis practice
+]
+[#AAFF00|Betty
+MO|1600|1640|Painting class
+# Entry below has no description. It is valid entry and will show only hours.
+WE|1200|1310|
+FR|1055|1140|Dance!
+]
+
+# This is the end of file, so from now every text should be a comment.

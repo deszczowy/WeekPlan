@@ -94,7 +94,7 @@ FR|1055|1140|Dance!
 ]
 ```
 
-In this example, the plan contains two people, each assigned a different color.
+In this example, the plan contains two people, each assigned a different color. This is just basic overview of activities file. See the `example.txt` file provided with aplication for more details.
 
 ### Formatting Rules
 
@@ -118,6 +118,10 @@ Week days symbols are:
 - **SU** - sunday
 
 Activities can be listed in any order - the script will place them right.
+
+### Validation
+
+The provided file will be checked for correct structure and data, so any errors will be described and marked, which will help create the file correctly.
 
 ## Command-Line Arguments
 
