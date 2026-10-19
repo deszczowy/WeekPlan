@@ -22,7 +22,8 @@ class Wrapper:
 
         if result is True:
             # Generating week plan print
-            Plan(self.output_file_name, shedule)
+            Plan(self.output_file_name, shedule, logger)
+            logger.notice("Week plan saved in {0}".format(self.output_file_name))
     
     def get_output_file(self, output_file) -> str:
         output = output_file

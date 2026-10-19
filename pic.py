@@ -75,7 +75,6 @@ class Picture:
             xd = i * self.m.DAY_WIDTH
             x = start_line + xd
             y = 0
-            # print(days[i])
             self.text(x, y,days[i], 40)
 
     def save(self):

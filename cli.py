@@ -47,12 +47,13 @@ class WeekPlan:
 
     def execute(self):
 
-        print(self.args)
-
         if self.args.INPUT is not None:
 
             # Input file was provided - proceed:
             log_level = self._get_log_level(self.args.talk)
+
+            if log_level.value >= LogLevel.ALSO_DEBUG.value:
+                print(self.args)
 
             from wrapper import Wrapper
             Wrapper(

@@ -39,25 +39,26 @@ class Schedule:
                 ft = day_end
         return ft
 
-    def show(self) -> None:
+    def to_string(self) -> str:
+        data = ""
         for p in self.data:
-            print("===")
-            print(self.data[p].name)
-            print(self.data[p].color)
+            data += "\n==="
+            data += "\n" + self.data[p].name
+            data += "\n" + self.data[p].color
             for w in self.week:
                 ex = self.data[p].get_day(w)
 
                 for l in ex:
-                    print("--")
-                    print(l.weekday)
-                    print(l.start)
-                    print(l.end)
-                    print(l.label)
-                    print(l.mins)
+                    data += "\n" + "--"
+                    data += "\n" + l.weekday
+                    data += "\n" + l.start
+                    data += "\n" + l.end
+                    data += "\n" + l.label
+                    data += "\n" + l.mins
 
-            print("-=-")
-            print(self.get_start_time())
-            print(self.get_finish_time())
+            data += "\n" + "-=-"
+            data += "\n" + self.get_start_time()
+            data += "\n" + self.get_finish_time()
 
     def create_entry(self, weekday, activity_start_time, activity_end_time, activity_label) -> Entry:
         return Entry(

@@ -3,8 +3,9 @@ from datetime import datetime
 
 class Plan(Picture):
 
-    def __init__(self, file_path, schedule, background="white"):
+    def __init__(self, file_path, schedule, logger, background="white"):
         super().__init__(file_path, background)
+        self.logger = logger
         # We need full schedule to print the plan sheet
         self.schedule = schedule
         # We need to prepare printout based on the schedule
@@ -23,7 +24,7 @@ class Plan(Picture):
         self.set_number_of_persons()
         self.update_measurements_according_to_plan(6, self.persons_no, self.first_hour, self.last_hour)
         self.build_days_offset_dictionary()
-        self.m.print()
+        self.logger.debug(self.m.print())
 
     def set_time_offsets(self):
         """
