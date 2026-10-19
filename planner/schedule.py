@@ -6,12 +6,15 @@ from .person import Person
 class Schedule:
 
     def __init__(self) -> None:
-        # Week plan description header
-        self.header = ""
-        # Activities storage. Dictionary where 
-        self.data = {}
+        self.clear()
         # Weekdays symbol
         self.week = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"]
+    
+    def clear(self) -> None:
+        # Week plan description header
+        self.header = ""
+        # Activities storage. Dictionary where person is the key
+        self.data = {}
     
     def add_person(self, label, color, activities) -> None:
         self.data[label] = Person(
