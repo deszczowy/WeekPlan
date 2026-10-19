@@ -4,54 +4,19 @@ from .wrapper import Wrapper
 
 class CommandLine:
     def __init__(self):
-        parser = argparse.ArgumentParser(
-            description="Generating printable activities week plan."
-        )
 
-        parser.add_argument(
-            "INPUT",
-            type=str,
-            help="Path to file with activities description."
-        )
+        self.description = "Generating printable activities week plan."
+        self.version = "1.0"
 
-        parser.add_argument(
-            "-o", "--output",
-            type=str,
-            nargs="?",
-            default=None,
-            help="Name of an output file. Optional, if not provided, input file name will be used."
-        )
-
-        parser.add_argument(
-            "-l", "--logfile",
-            type=str,
-            nargs="?",
-            help="Name of a file where app log will be stored, beside the default console output."
-        )
-        
-        parser.add_argument(
-            "-t", "--talk",
-            type=str,
-            choices=["none", "normal", "info", "debug"],
-            nargs="?",
-            default="normal",
-            help="Provide custom level of app communication log."
-        )
-
-        parser.add_argument(
-            "-v", "--version",
-            action="version",
-            version="%(prog)s is 1.0",
-        )
-
-        self.args = parser.parse_args()
+        self.build_command_line()
+        self.parse()        
 
     def run(self):
 
         if self.args.INPUT is not None:
 
             # Input file was provided - proceed:
-            log_level = self._get_log_level(self.args.talk)
+            log_level = self.get_log_level(self.args.talk)
 
             if log_level.value >= LogLevel.ALSO_DEBUG.value:
                 print(self.args)
@@ -63,7 +28,21 @@ class CommandLine:
                 log_level
             )
     
-    def _get_log_level(self, input: str) -> LogLevel:
+    def build_command_line(self) -> None:
+        self.build_parser()
+        self.add_positional("INPUT", "Path to file with activities description")
+        self.add_str("-o", "--output", "Name of an output file. Optional, if not provided, input file name will be used")
+        self.add_str("-l", "--logfile", "Name of a file where app log will be stored, beside the default console output")
+        self.add_choice("-t", "--talk", ["none", "normal", "info", "debug"], "normal", "Provide custom level of app communication log")
+        # self.add_choice("-s", "--sort", ["original", "az", "za"], "original", "Sorting order of people's plans by persons names")
+        # self.add_choice("-p", "--position", ["left", "center", "right"], "left", "Position of schedule title on print")
+        
+        self.add_version()
+    
+    def parse(self) -> None:
+        self.args = self.parser.parse_args()
+
+    def get_log_level(self, input: str) -> LogLevel:
         if input == "none":
             return LogLevel.SILENT
         if input == "debug":
@@ -71,3 +50,41 @@ class CommandLine:
         if input == "info":
             return LogLevel.EVEN_INFO
         return LogLevel.JUST_COMMUNICATION
+
+    def build_parser(self) -> None:
+        self.parser = argparse.ArgumentParser(
+            description=self.description
+        )
+    
+    def add_version(self) -> None:
+        self.parser.add_argument(
+            "-v", "--version",
+            action="version",
+            version="%(prog)s is " + self.version,
+        )
+    
+    def add_positional(self, name, description) -> None:
+        self.parser.add_argument(
+            name,
+            type=str,
+            help=description
+        )
+
+    def add_str(self, cshort, clong, description) -> None:
+        self.parser.add_argument(
+            cshort, clong,
+            type=str,
+            nargs=1,
+            default=None,
+            help=description
+        )
+    
+    def add_choice(self, cshort, clong, choices, default, description) -> None:
+        self.parser.add_argument(
+            cshort, clong,
+            type=str,
+            choices=choices,
+            nargs=1,
+            default=default,
+            help=description
+        )
