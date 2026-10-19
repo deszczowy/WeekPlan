@@ -1,21 +1,36 @@
+from schedule import Schedule
+from filereader import FileReader
+from plan import Plan
+from logger import Logger, LogLevel
+
+        
 class Wrapper:
 
     def __init__(self, input_file, output_file, log_file, log_level) -> None:
-        from schedule import Schedule
-        from filereader import FileReader
-        from plan import Plan
-        from logger import Logger, LogLevel
+        
+        self.input_file_name = input_file
+        self.output_file_name = self.get_output_file(output_file)
 
+        # Notification surface
         logger = Logger(log_level, log_file)
+        
+        # Base schedule
+        shedule = Schedule()
 
+        # Reading input file
+        FileReader(input_file, shedule, logger)
+
+        # Generating week plan print
+        Plan(self.output_file_name, shedule)
+    
+    def get_output_file(self, output_file) -> str:
         output = output_file
         if output is None:
-            output = self.change_extension(input_file, "png")
+            output = self.input_file_name
+        output = self.change_extension(output, "png")
+        return output
 
-        shedule = Schedule()
-        freader = FileReader(input_file, shedule)
-        Plan(output, shedule)
-
+    # -> General tool
     def change_extension(self, file_path: str, new_extension: str) -> str:
         from pathlib import Path
         

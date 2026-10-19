@@ -3,16 +3,16 @@ from person import Person
 
 
 class FileReader:
-    def __init__(self, file_path, week_plan):
+    def __init__(self, file_path, week_plan, logger):
         week_plan.header = ""
         week_plan.data = {}
 
         with open(file_path, "r", encoding="utf-8") as file:
             lines = [line.strip() for line in file]
 
-        # Pierwsza linia pliku to tytuł
         if lines:
             week_plan.header = lines[0]
+            logger.notice("Reading \"{0}\".".format(week_plan.header))
 
         current_label = None
         current_color = None

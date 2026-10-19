@@ -52,7 +52,7 @@ class WeekPlan:
         if self.args.INPUT is not None:
 
             # Input file was provided - proceed:
-            log_level = self.get_log_level(self.args.talk)
+            log_level = self._get_log_level(self.args.talk)
 
             from wrapper import Wrapper
             Wrapper(
@@ -62,7 +62,7 @@ class WeekPlan:
                 log_level
             )
     
-    def get_log_level(self, input: str) -> LogLevel:
+    def _get_log_level(self, input: str) -> LogLevel:
         if input == "none":
             return LogLevel.SILENT
         if input == "debug":
