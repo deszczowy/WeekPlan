@@ -1,15 +1,24 @@
 from datetime import datetime, time
+from .entry import Entry
+from .person import Person
 
 
 class Schedule:
 
-    def __init__(self):
+    def __init__(self) -> None:
         # Week plan description header
         self.header = ""
         # Activities storage. Dictionary where 
         self.data = {}
         # Weekdays symbol
         self.week = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"]
+    
+    def add_person(self, label, color, activities) -> None:
+        self.data[label] = Person(
+            name=label,
+            color=color,
+            activities=activities
+        )
 
     def get_start_time(self):
         st = datetime.strptime("2359", "%H%M").time()
@@ -27,7 +36,7 @@ class Schedule:
                 ft = day_end
         return ft
 
-    def show(self):
+    def show(self) -> None:
         for p in self.data:
             print("===")
             print(self.data[p].name)
@@ -46,3 +55,11 @@ class Schedule:
             print("-=-")
             print(self.get_start_time())
             print(self.get_finish_time())
+
+    def create_entry(self, weekday, activity_start_time, activity_end_time, activity_label) -> Entry:
+        return Entry(
+            weekday=weekday,
+            start=activity_start_time,
+            end=activity_end_time,
+            label=activity_label
+        )

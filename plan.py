@@ -55,7 +55,7 @@ class Plan(Picture):
             po += 1
             person = self.schedule.data[key]
             person.order = po
-            for e in person.lines:
+            for e in person.activities:
                 self._print_activity(person, e)
             self.print_person_description(person)
     

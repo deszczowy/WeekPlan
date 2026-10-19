@@ -1,4 +1,4 @@
-from schedule import Schedule
+from planner import Schedule
 from filereader import FileReader
 from plan import Plan
 from logger import Logger, LogLevel

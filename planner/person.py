@@ -1,19 +1,16 @@
 from datetime import datetime, time
 
-"""
-Osoba, której zajęcia są obecne na planie.
-Zawiera definicje koloru pozycji na planie, nazwę osoby i wszystkie jej zadania w tygodniu.
-"""
+
 class Person:
-    def __init__(self, name, color, lines):
+    def __init__(self, name, color, activities):
         self.order = 0
         self.name = name
         self.color = color
-        self.lines = lines
+        self.activities = activities
 
     def get_day(self, symbol):
         vs = []
-        for l in self.lines:
+        for l in self.activities:
             if l.weekday == symbol:
                 vs.append(l)
         return vs
@@ -21,7 +18,7 @@ class Person:
     def get_minimum_time(self):
         mt = datetime.strptime("2359", "%H%M").time()
 
-        for l in self.lines:
+        for l in self.activities:
             if l.start < mt:
                 mt = l.start
         return mt
@@ -29,7 +26,7 @@ class Person:
     def get_maximum_time(self):
         mt = datetime.strptime("0000", "%H%M").time()
 
-        for l in self.lines:
+        for l in self.activities:
             if l.end > mt:
                 mt = l.end
         return mt
