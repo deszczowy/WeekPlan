@@ -1,6 +1,6 @@
 from planner import Schedule
 from .reader import Reader
-from .validator import Validator, Rule
+from .validator import Validator
 
 
 class Parser:
@@ -17,7 +17,10 @@ class Parser:
             if self.data_is_valid():
                 self.set_header()
                 self.set_data()
+                self.logger.notice("Data gathered.")
                 return True
+        
+        self.logger.notice("Stop.")
         return False
 
     def data_is_present(self) -> bool:

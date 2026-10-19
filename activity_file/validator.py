@@ -16,9 +16,6 @@ class Validator:
     # [#RRGGBB|any text
     HEADER_PATTERN = re.compile(r"^\[#[0-9A-Fa-f]{6}\|(.*)$")
 
-    # 1-4 digits
-    NUMBER_PATTERN = re.compile(r"^\d{1,4}$")
-
     def validate(self, lines: list[str]) -> list[str]:
         """
         Validates list of the file lines.
@@ -45,8 +42,15 @@ class Validator:
                     errors.append(Rule("S04", line_number, "Persons schedules can not be nested"))
                     continue
 
-                if not self.HEADER_PATTERN.fullmatch(line):
+                match = self.HEADER_PATTERN.fullmatch(line)
+
+                if not match:
                     errors.append(Rule("S05", line_number, "Incorrect persons schedule header"))
+                    continue
+
+                person_name = match.group(1)
+                if not person_name.strip():
+                    errors.append(Rule("S06", line_number, "Person name can not be empty"))
                     continue
 
                 inside_block = True
@@ -55,7 +59,7 @@ class Validator:
             # Person schedule end
             if line == "]":
                 if not inside_block:
-                    errors.append(Rule("S06", line_number, "Unexpected schedule closing before opening"))
+                    errors.append(Rule("S07", line_number, "Unexpected schedule closing before opening"))
                     continue
 
                 inside_block = False
@@ -63,14 +67,14 @@ class Validator:
 
             # Entries can not be outside of a schedule
             if not inside_block:
-                errors.append(Rule("S07", line_number, "Schedule entry outside of schedule"))
+                errors.append(Rule("S08", line_number, "Schedule entry outside of schedule"))
                 continue
 
             # Walidacja wpisu
             errors.extend(self._validate_entry(line, line_number))
 
         if inside_block:
-            errors.append(Rule("S07", len(lines), "Unexpected end of file (no closing symbol found)"))
+            errors.append(Rule("S09", len(lines), "Unexpected end of file (no closing symbol found)"))
 
         return errors
 
@@ -96,15 +100,34 @@ class Validator:
             errors.append(Rule("E02", line_number, f"Incorrect weekday symbol, {day!r} found."))
 
         # Start time
-        if not self.NUMBER_PATTERN.fullmatch(start):
+        if not self._is_valid_time(start):
             errors.append(Rule("E03", line_number, f"Incorrect time format, {start!r}."))
 
         # End time
-        if not self.NUMBER_PATTERN.fullmatch(end):
+        if not self._is_valid_time(end):
             errors.append(Rule("E03", line_number, f"Incorrect time format, {end!r}."))
+        
+        if (int(end.zfill(4)) <= int(start.zfill(4))):
+            errors.append(Rule("E04", line_number, "End time must be later than the start time."))
 
         # Description
         if len(description) > MAX_DESCRIPTION_LENGTH:
-            errors.append(Rule("E04", line_number, "Entry description too long, {0} > {1}".format(count, MAX_DESCRIPTION_LENGTH)))
+            errors.append(Rule("E05", line_number, "Entry description too long, {0} > {1}".format(count, MAX_DESCRIPTION_LENGTH)))
 
         return errors
+
+    def _is_valid_time(self, value: str) -> bool:
+        """Checks if time is correct value from 00:00 to 23:59."""
+
+        if not value.isascii() or not value.isdigit():
+            return False
+
+        if not 1 <= len(value) <= 4:
+            return False
+
+        value = value.zfill(4)
+
+        hours = int(value[:2])
+        minutes = int(value[2:])
+
+        return 0 <= hours <= 23 and 0 <= minutes <= 59
