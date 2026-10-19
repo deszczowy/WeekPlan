@@ -1,6 +1,6 @@
 # WeekPlan - Weekly Schedule Generator
 
-<img align="right" src="/res/wp.png" width="150"> WeekPlan is a Python script for generating ready to print graphical weekly schedules from user-defined activities. Similar to a school timetable, it allows you to organize virtually any type of activities into a clear, visual weekly plan.
+<img align="right" src="/res/wp.png" width="200"> WeekPlan is a Python script for generating ready to print graphical weekly schedules from user-defined activities. Similar to a school timetable, it allows you to organize virtually any type of activities into a clear, visual weekly plan.
 
 The application runs as a Python script and requires an input file describing the activities to be scheduled.
 
