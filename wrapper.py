@@ -1,9 +1,12 @@
 class Wrapper:
 
-    def __init__(self, input_file, output_file) -> None:
+    def __init__(self, input_file, output_file, log_file, log_level) -> None:
         from schedule import Schedule
         from filereader import FileReader
         from plan import Plan
+        from logger import Logger, LogLevel
+
+        logger = Logger(log_level, log_file)
 
         output = output_file
         if output is None:

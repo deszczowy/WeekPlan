@@ -126,6 +126,8 @@ The script supports the following command-line arguments:
 | Argument | Short | Description |
 |---|---|---|
 | `--output` | `-o` | Specify the output file name. |
+| `--logfile` | `-l` | Specify the log file name |
+| `--talk` | `-t` | Determines the level of verbosity. Default value is `normal`. Other possible values are: `none`, `info` and `debug`. |
 | `--help` | `-h` | Display help information and exit. |
 | `--version` | `-v` | Display the application version and exit. |
 
