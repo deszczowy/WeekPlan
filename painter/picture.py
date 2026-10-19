@@ -45,6 +45,13 @@ class Picture:
         p = (x, y)
         draw.text(p, caption, fill="black", font=ufont)
 
+    # Measuring text length in pixels
+    def text_length(self, text, size) -> int:
+        draw = ImageDraw.Draw(self.image)
+        ufont = ImageFont.truetype(self.font, size)
+        return draw.textlength(text, font=ufont, font_size=size)
+        
+
     # Prints grid on a paper
     def grid(self):
         stepy = self.m.CLIENTH / self.m.HOURS

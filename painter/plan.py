@@ -15,6 +15,7 @@ class Plan(Picture):
         self.print_border()
         self.grid()
         self.print_labels(self.schedule.week)
+        self.print_schedule_title()
         self.build()
         # Save to file
         self.save()
@@ -61,8 +62,16 @@ class Plan(Picture):
                 self._print_activity(person, e)
             self.print_person_description(person)
     
-    def print_person_description(self, person):
+    def print_schedule_title(self) -> None:
         x = self.m.MARGIN_LEFT + self.m.GUTTER
+        y = self.m.CLIENTH + self.m.PADDING
+        t = self.schedule.header
+        s = 25
+        self.title_offset = self.text_length(t, s) + self.m.GUTTER
+        self.text(x, y, t, s)
+    
+    def print_person_description(self, person):
+        x = self.m.MARGIN_LEFT + self.m.GUTTER + self.title_offset
         y = self.m.CLIENTH + self.m.PADDING
         m = 300 # self.m.CLIENTW / self.m.PERSONS_COUNT
         w = 50
@@ -79,8 +88,6 @@ class Plan(Picture):
 
         x2 = x1  + activity_width - (2 * self.m.PADDING)
         y2 = y1 + (entry.duration() * self.m.MINUTE)
-
-        # stra = "({0},{1}) ({2},{3}) {4}".format(x1,y1,x2,y2,entry.weekday)
 
         self.rectangle(x1, y1, x2, y2, fill=person.color)
 
