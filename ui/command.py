@@ -1,7 +1,8 @@
 import argparse
-from logger import LogLevel
+from .logger import LogLevel
+from .wrapper import Wrapper
 
-class WeekPlan:
+class CommandLine:
     def __init__(self):
         parser = argparse.ArgumentParser(
             description="Generating printable activities week plan."
@@ -45,7 +46,7 @@ class WeekPlan:
 
         self.args = parser.parse_args()
 
-    def execute(self):
+    def run(self):
 
         if self.args.INPUT is not None:
 
@@ -55,7 +56,6 @@ class WeekPlan:
             if log_level.value >= LogLevel.ALSO_DEBUG.value:
                 print(self.args)
 
-            from wrapper import Wrapper
             Wrapper(
                 self.args.INPUT,
                 self.args.output,

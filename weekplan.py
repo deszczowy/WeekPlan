@@ -1,5 +1,5 @@
-from cli import WeekPlan
+from ui import CommandLine
 
 if __name__ == "__main__":
-    app = WeekPlan()
-    app.execute()
+    app = CommandLine()
+    app.run()

@@ -1,7 +1,8 @@
 from planner import Schedule
 from activity_file import Parser
 from painter import Plan
-from logger import Logger, LogLevel
+
+from .logger import Logger
 
         
 class Wrapper:
