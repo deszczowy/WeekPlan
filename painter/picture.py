@@ -1,6 +1,6 @@
 from PIL import Image, ImageDraw, ImageColor, ImageFont
 
-from measurements import Measurements
+from .measurements import Measurements
 
 class Picture:
     # A4 Landscape 300dpi

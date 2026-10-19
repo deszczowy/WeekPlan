@@ -1,5 +1,6 @@
-from pic import Picture
 from datetime import datetime
+from .picture import Picture
+
 
 class Plan(Picture):
 

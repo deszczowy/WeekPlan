@@ -1,6 +1,6 @@
 from planner import Schedule
 from activity_file import Parser
-from plan import Plan
+from painter import Plan
 from logger import Logger, LogLevel
 
         
