@@ -17,9 +17,22 @@ class Options:
         self.input_file_name: str = None
         self.output_file_name: str = None
     
-    def set_io(self, input_file, output_file) -> None:
+    def set_io(self, input_file: str, output_file: str) -> None:
         self.input_file_name = input_file
         self._set_output_file(output_file)
+    
+    def set_log(self, log_level_name: str, log_file: str) -> None:
+        self._set_log_level(log_level_name)
+        self.log_file = log_file    
+
+    def _set_log_level(self, input: str) -> None:
+        if input == "none":
+            self.log_level = LogLevel.SILENT
+        if input == "debug":
+            self.log_level =  LogLevel.ALSO_DEBUG
+        if input == "info":
+            self.log_level =  LogLevel.EVEN_INFO
+        self.log_level =  LogLevel.JUST_COMMUNICATION
 
     def _set_output_file(self, output_file) -> None:
         output = output_file

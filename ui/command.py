@@ -1,5 +1,5 @@
 import argparse
-from options import Options, LogLevel
+from options import Options
 from .wrapper import Wrapper
 
 class CommandLine:
@@ -17,12 +17,7 @@ class CommandLine:
 
             options = Options()
             options.set_io(self.args.input, self.args.output)
-
-            # Input file was provided - proceed:
-            log_level = self.get_log_level(self.args.talk)
-
-            if log_level.value >= LogLevel.ALSO_DEBUG.value:
-                print(self.args)
+            options.set_log(self.args.talk, self.args.logfile)
 
             Wrapper(options)
     
@@ -40,14 +35,9 @@ class CommandLine:
     def parse(self) -> None:
         self.args = self.parser.parse_args()
 
-    def get_log_level(self, input: str) -> LogLevel:
-        if input == "none":
-            return LogLevel.SILENT
-        if input == "debug":
-            return LogLevel.ALSO_DEBUG
-        if input == "info":
-            return LogLevel.EVEN_INFO
-        return LogLevel.JUST_COMMUNICATION
+    #
+    # Building
+    #
 
     def build_parser(self) -> None:
         self.parser = argparse.ArgumentParser(
