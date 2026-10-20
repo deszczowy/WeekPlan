@@ -1,6 +1,6 @@
 from datetime import datetime
 from planner import Schedule
-from options import Options, SortOrder, WEEKDAYS
+from options import Options, SortOrder, TitlePosition, WEEKDAYS
 from .picture import Picture
 
 
@@ -74,12 +74,24 @@ class Plan(Picture):
             self.print_person_description(person)
     
     def print_schedule_title(self) -> None:
-        x = self.m.MARGIN_LEFT + self.m.GUTTER
-        y = self.m.CLIENTH + self.m.PADDING
-        t = self.schedule.header
-        s = 25
-        self.title_offset = self.text_length(t, s) + self.m.GUTTER
-        self.text(x, y, t, s)
+
+        self.title_offset = 0
+
+        if self.options.title_position is not TitlePosition.HIDDEN:
+            txt = self.schedule.header
+            fsize = 25
+            title_length = self.text_length(txt, fsize)
+                
+            x = 0
+            y = self.m.CLIENTH + self.m.PADDING    
+
+            if self.options.title_position == TitlePosition.LEFT:
+                x = self.m.MARGIN_LEFT + self.m.GUTTER    
+                self.title_offset = title_length + self.m.GUTTER
+            else: # TitlePosition.RIGHT
+                x = self.m.MARGIN_LEFT + self.m.CLIENTW - title_length          
+            
+            self.text(x, y, txt, fsize)
     
     def print_person_description(self, person):
         x = self.m.MARGIN_LEFT + self.m.GUTTER + self.title_offset

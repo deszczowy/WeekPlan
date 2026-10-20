@@ -1,5 +1,5 @@
 import argparse
-from options import Options, TALK_MAPPER, SORT_MAPPER
+from options import Options, TALK_MAPPER, SORT_MAPPER, TITLE_POSITION_MAPPER
 from .wrapper import Wrapper
 
 class CommandLine:
@@ -27,7 +27,7 @@ class CommandLine:
         self._add_str("-l", "--logfile", "Name of a file where app log will be stored, beside the default console output")
         self._add_choice("-t", "--talk", TALK_MAPPER.keys(), "normal", "Provide custom level of app communication log")
         self._add_choice("-s", "--sort", SORT_MAPPER.keys(), "original", "Sorting order of people's plans by persons names")
-        # self.add_choice("-p", "--position", ["left", "center", "right"], "left", "Position of schedule title on print")
+        self._add_choice("-p", "--position", TITLE_POSITION_MAPPER.keys(), "left", "Position of schedule title on print")
         
         self._add_version()
 

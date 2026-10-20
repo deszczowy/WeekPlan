@@ -1,5 +1,6 @@
 from .enum_log import LogLevel
 from .enum_sort import SortOrder
+from .enum_position import TitlePosition
 
 # Weekdays symbols
 WEEKDAYS = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"]
@@ -15,4 +16,10 @@ SORT_MAPPER = {
     "original": SortOrder.ORIGINAL,
     "az": SortOrder.A_TO_Z,
     "za": SortOrder.Z_TO_A,
+}
+
+TITLE_POSITION_MAPPER = {
+    "hidden": TitlePosition.HIDDEN,
+    "left": TitlePosition.LEFT,
+    "right": TitlePosition.RIGHT,
 }
