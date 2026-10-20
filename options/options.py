@@ -1,5 +1,6 @@
 from .enum_log import LogLevel
 from .enum_sort import SortOrder
+from .tool import Tool
 
 
 class Options:
@@ -24,13 +25,4 @@ class Options:
         output = output_file
         if output is None:
             output = self.input_file_name
-        self.output_file_name = self.change_extension(output, "png")
-
-    # -> General tool
-    def change_extension(self, file_path: str, new_extension: str) -> str:
-        from pathlib import Path
-        
-        path = Path(file_path)
-        new_extension = new_extension.lstrip(".")
-        new_path = path.with_suffix(f".{new_extension}")
-        return str(new_path)
+        self.output_file_name = Tool.change_extension(output, "png")
