@@ -1,4 +1,5 @@
 from datetime import datetime, time
+from options import WEEKDAYS
 from .entry import Entry
 from .person import Person
 
@@ -7,8 +8,6 @@ class Schedule:
 
     def __init__(self) -> None:
         self.clear()
-        # Weekdays symbol
-        self.week = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"]
     
     def clear(self) -> None:
         # Week plan description header
@@ -45,7 +44,7 @@ class Schedule:
             data += "\n==="
             data += "\n" + self.data[p].name
             data += "\n" + self.data[p].color
-            for w in self.week:
+            for w in WEEKDAYS:
                 ex = self.data[p].get_day(w)
 
                 for l in ex:

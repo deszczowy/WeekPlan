@@ -1,5 +1,5 @@
 from PIL import Image, ImageDraw, ImageColor, ImageFont
-
+from options import WEEKDAYS
 from .measurements import Measurements
 
 class Picture:
@@ -74,7 +74,7 @@ class Picture:
             points = [p1, p2]
             draw.line(points, fill="blue", width=1)
 
-    def print_labels(self, days):
+    def print_labels(self):
         draw = ImageDraw.Draw(self.image)
         start_line = self.m.MARGIN_LEFT + self.m.GUTTER
 
@@ -82,7 +82,7 @@ class Picture:
             xd = i * self.m.DAY_WIDTH
             x = start_line + xd
             y = 0
-            self.text(x, y,days[i], 40)
+            self.text(x, y, WEEKDAYS[i], 40)
 
     def save(self):
         self.image.save(self.file_path)

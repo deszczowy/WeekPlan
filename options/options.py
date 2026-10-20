@@ -1,6 +1,7 @@
 from .enum_log import LogLevel
 from .enum_sort import SortOrder
 from .tool import Tool
+from .consts import TALK_MAPPER, SORT_MAPPER
 
 
 class Options:
@@ -23,16 +24,22 @@ class Options:
     
     def set_log(self, log_level_name: str, log_file: str) -> None:
         self._set_log_level(log_level_name)
-        self.log_file = log_file    
+        self.log_file = log_file
+    
+    def set_printer(self, sort_order: str) -> None:
+        self._set_sort_order(sort_order)
 
     def _set_log_level(self, input: str) -> None:
-        if input == "none":
-            self.log_level = LogLevel.SILENT
-        if input == "debug":
-            self.log_level =  LogLevel.ALSO_DEBUG
-        if input == "info":
-            self.log_level =  LogLevel.EVEN_INFO
-        self.log_level =  LogLevel.JUST_COMMUNICATION
+        if input in TALK_MAPPER.keys():
+            self.log_level = TALK_MAPPER[input]
+        else:
+            self.log_level =  LogLevel.JUST_COMMUNICATION
+    
+    def _set_sort_order(self, input: str) -> None:
+        if input in SORT_MAPPER.keys():
+            self.sort_order = SORT_MAPPER[input]
+        else:
+            self.sort_order = SortOrder.ORIGINAL
 
     def _set_output_file(self, output_file) -> None:
         output = output_file

@@ -21,5 +21,5 @@ class Wrapper:
 
         if result is True:
             # Generating week plan print
-            Plan(options.output_file_name, shedule, logger)
+            Plan(options, shedule, logger)
             logger.notice("Week plan saved in {0}".format(options.output_file_name))

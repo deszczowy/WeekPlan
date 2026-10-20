@@ -1,5 +1,5 @@
 import argparse
-from options import Options
+from options import Options, TALK_MAPPER, SORT_MAPPER
 from .wrapper import Wrapper
 
 class CommandLine:
@@ -18,6 +18,9 @@ class CommandLine:
             options = Options()
             options.set_io(self.args.input, self.args.output)
             options.set_log(self.args.talk, self.args.logfile)
+            options.set_printer(self.args.sort)
+
+            print(self.args)
 
             Wrapper(options)
     
@@ -26,8 +29,8 @@ class CommandLine:
         self.add_positional("input", "Path to file with activities description")
         self.add_str("-o", "--output", "Name of an output file. Optional, if not provided, input file name will be used")
         self.add_str("-l", "--logfile", "Name of a file where app log will be stored, beside the default console output")
-        self.add_choice("-t", "--talk", ["none", "normal", "info", "debug"], "normal", "Provide custom level of app communication log")
-        # self.add_choice("-s", "--sort", ["original", "az", "za"], "original", "Sorting order of people's plans by persons names")
+        self.add_choice("-t", "--talk", TALK_MAPPER.keys(), "normal", "Provide custom level of app communication log")
+        self.add_choice("-s", "--sort", SORT_MAPPER.keys(), "original", "Sorting order of people's plans by persons names")
         # self.add_choice("-p", "--position", ["left", "center", "right"], "left", "Position of schedule title on print")
         
         self.add_version()
@@ -72,7 +75,7 @@ class CommandLine:
             cshort, clong,
             type=str,
             choices=choices,
-            nargs=1,
+            nargs='?',
             default=default,
             help=description
         )

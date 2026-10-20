@@ -1,12 +1,15 @@
 from datetime import datetime
+from planner import Schedule
+from options import Options, SortOrder, WEEKDAYS
 from .picture import Picture
 
 
 class Plan(Picture):
 
-    def __init__(self, file_path, schedule, logger, background="white"):
-        super().__init__(file_path, background)
+    def __init__(self, options: Options, schedule: Schedule, logger: Logger, background="white"):
+        super().__init__(options.output_file_name, background)
         self.logger = logger
+        self.options = options
         # We need full schedule to print the plan sheet
         self.schedule = schedule
         # We need to prepare printout based on the schedule
@@ -14,7 +17,7 @@ class Plan(Picture):
         # Build the whole thing
         self.print_border()
         self.grid()
-        self.print_labels(self.schedule.week)
+        self.print_labels()
         self.print_schedule_title()
         self.build()
         # Save to file
@@ -24,6 +27,7 @@ class Plan(Picture):
     def initial_setups(self):
         self.set_time_offsets()
         self.set_number_of_persons()
+        self.sort_persons()
         self.update_measurements_according_to_plan(6, self.persons_no, self.first_hour, self.last_hour)
         self.build_days_offset_dictionary()
         self.logger.debug(self.m.print())
@@ -44,17 +48,24 @@ class Plan(Picture):
     
     def set_number_of_persons(self):
         self.persons_no = len(self.schedule.data)
+    
+    def sort_persons(self) -> None:
+        self.persons = list(self.schedule.data.keys())
+        if self.options.sort_order == SortOrder.A_TO_Z:
+            self.persons.sort(reverse=False)
+        if self.options.sort_order == SortOrder.Z_TO_A:
+            self.persons.sort(reverse=True)
 
     def build_days_offset_dictionary(self):
         self.days_offsets = {}
         off = 0
-        for day in self.schedule.week:
+        for day in WEEKDAYS:
             self.days_offsets[day] = off * self.m.DAY_WIDTH
             off +=1
 
     def build(self):
         po = 0
-        for key in self.schedule.data:
+        for key in self.persons:
             po += 1
             person = self.schedule.data[key]
             person.order = po
