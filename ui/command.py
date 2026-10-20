@@ -1,5 +1,5 @@
 import argparse
-from .logger import LogLevel
+from options import Options, LogLevel
 from .wrapper import Wrapper
 
 class CommandLine:
@@ -13,7 +13,10 @@ class CommandLine:
 
     def run(self):
 
-        if self.args.INPUT is not None:
+        if self.args.input is not None:
+
+            options = Options()
+            options.set_io(self.args.input, self.args.output)
 
             # Input file was provided - proceed:
             log_level = self.get_log_level(self.args.talk)
@@ -21,16 +24,11 @@ class CommandLine:
             if log_level.value >= LogLevel.ALSO_DEBUG.value:
                 print(self.args)
 
-            Wrapper(
-                self.args.INPUT,
-                self.args.output,
-                self.args.logfile,
-                log_level
-            )
+            Wrapper(options)
     
     def build_command_line(self) -> None:
         self.build_parser()
-        self.add_positional("INPUT", "Path to file with activities description")
+        self.add_positional("input", "Path to file with activities description")
         self.add_str("-o", "--output", "Name of an output file. Optional, if not provided, input file name will be used")
         self.add_str("-l", "--logfile", "Name of a file where app log will be stored, beside the default console output")
         self.add_choice("-t", "--talk", ["none", "normal", "info", "debug"], "normal", "Provide custom level of app communication log")

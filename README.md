@@ -1,15 +1,13 @@
 # WeekPlan - Weekly Schedule Generator
-
 <img align="right" src="/res/wp.png" width="200"> WeekPlan is a Python script for generating ready to print graphical weekly schedules from user-defined activities. Similar to a school timetable, it allows you to organize virtually any type of activities into a clear, visual weekly plan.
 
 The application runs as a Python script and requires an input file describing the activities to be scheduled.
 
 > **Note:** A standalone executable version is planned for a future release.
 
-Version 1.0
+Version 1.1
 
 ## Table of Contents
-
 - [Requirements and installation](#requirements-and-installation)
 - [Basic usage](#basic-usage)
 - [Input File Format](#input-file-format)
@@ -20,7 +18,6 @@ Version 1.0
 - [License](#license)
 
 ## Requirements and installation
-
 You only need Python 3.x, no additional dependencies are required, so tu use the script:
 
 1. Install Python 3.x if it is not already installed.
@@ -40,7 +37,6 @@ python -m pip install -r requirements.txt
 And You are good to go.
 
 ### Building executable
-
 If Python script packed into on executable file is prefered, build it yourself using tools of your choice, or You can use provided script, which uses `pyInstaller` to build executable.
 
 1. Add execution priviledges to the script `chmod +x build.sh`
@@ -49,7 +45,6 @@ If Python script packed into on executable file is prefered, build it yourself u
 Result executable will appear in `dist/` directory.
 
 ## Basic usage
-
 Run the script from a terminal using the following command:
 
 ```bash
@@ -68,11 +63,9 @@ will generate `plan.png` file next to the `plan.txt` file.
 The input file must follow the structure and formatting rules described in the [Input File Format](#input-file-format) section.
 
 ## Input File Format
-
 The input file is a flat text file which defines the title of the weekly plan, the people included in the schedule, and their activities.
 
 ### File Structure
-
 The file consists of the following elements:
 
 1. **Plan title** — the first line contains the title of the weekly plan.
@@ -100,7 +93,6 @@ Time values use the 24-hour clock without a colon separator. Hours and minutes a
 The color defined for a person is used to identify that person's activities in the generated schedule.
 
 ### Example
-
 ```text
 Weekly Plan
 [#7CB4EF|Person 1
@@ -116,7 +108,6 @@ FR|1055|1140|Dance!
 In this example, the plan contains two people, each assigned a different color. This is just basic overview of activities file. See the `example.txt` file provided with aplication for more details.
 
 ### Formatting Rules
-
 - The first line must contain the plan title.
 - Each person must be defined in a separate block.
 - A person block must start with `[` followed by the hexadecimal color code, a `|` separator, and the person's name.
@@ -139,11 +130,9 @@ Week days symbols are:
 Activities can be listed in any order - the script will place them right.
 
 ### Validation
-
 The provided file will be checked for correct structure and data, so any errors will be described and marked, which will help create the file correctly.
 
 ## Command-Line Arguments
-
 The script supports the following command-line arguments:
 
 | Argument | Short | Description |
@@ -155,7 +144,6 @@ The script supports the following command-line arguments:
 | `--version` | `-v` | Display the application version and exit. |
 
 ## Examples
-
 Generate a weekly schedule using an input file and default configuration:
 
 ```bash
@@ -169,15 +157,15 @@ python weekplan.py plan.txt --output school-plan
 ```
 
 ## Standalone Version
-
 A standalone executable version is planned for a future release. It will allow users to run the application without installing Python separately.
 
 Until then, Python 3.x is required to run the script.
 
 ## Change Log
+Current version is 1.1.
 
-Current version is 1.0.
+### Ver. 1.1
+* Documentation updated
 
 ## License
-
 WeekPlan is licensed under the MIT license, so go ahead and do whatever You want with this code. Enjoy!

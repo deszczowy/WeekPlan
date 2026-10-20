@@ -1,17 +1,11 @@
-from enum import Enum
 import os
-
-class LogLevel(Enum):
-    EVEN_INFO = 3
-    ALSO_DEBUG = 2
-    JUST_COMMUNICATION = 1
-    SILENT = 0
+from options import Options, LogLevel
  
 class Logger:
 
-    def __init__(self, level: LogLevel, log_file: str = None) -> None:
-        self.level = level
-        self.file = log_file
+    def __init__(self, options: Options) -> None:
+        self.level = options.log_level
+        self.file = options.log_file
 
     def info(self, message: str) -> None:
         if self.level == LogLevel.EVEN_INFO:

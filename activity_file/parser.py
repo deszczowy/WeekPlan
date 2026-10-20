@@ -1,14 +1,15 @@
 from planner import Schedule
+from options import Options
 from .reader import Reader
 from .validator import Validator
 
 
 class Parser:
 
-    def __init__(self, file_path: str, schedule: Schedule, logger) -> None:
+    def __init__(self, options: Options, schedule: Schedule, logger) -> None:
         self.schedule = schedule
         self.schedule.clear()
-        self.file = file_path
+        self.file = options.input_file_name
         self.logger = logger
         self.lines = []
 
