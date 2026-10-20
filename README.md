@@ -138,8 +138,9 @@ The script supports the following command-line arguments:
 | Argument | Short | Description |
 |---|---|---|
 | `--output` | `-o` | Specify the output file name. |
-| `--logfile` | `-l` | Specify the log file name |
+| `--logfile` | `-l` | Specify the log file name. |
 | `--talk` | `-t` | Determines the level of verbosity. Default value is `normal`. Other possible values are: `none`, `info` and `debug`. |
+| `--sort` | `-s` | Detemines the sorting order of persons from input file, by their names. Default value is 'original. Other possible values are `az` for ascending order and `za` for descending order. |
 | `--help` | `-h` | Display help information and exit. |
 | `--version` | `-v` | Display the application version and exit. |
 
@@ -165,6 +166,7 @@ Until then, Python 3.x is required to run the script.
 Current version is 1.1.
 
 ### Ver. 1.1
+* Person sorting method can be provided with `--sort` parameter.
 * Documentation updated
 
 ## License
