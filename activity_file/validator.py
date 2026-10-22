@@ -34,10 +34,24 @@ class Validator:
         if first_line.startswith("["):
             errors.append(Rule("S03", 1, "File should start with a title, not a person schedule"))
         inside_block = False
+        context_block = False
 
         for line_number, line in enumerate(lines[1:], start=2):
+            # Context block
+            if line.startswith("{"):
+                context_block = True
+                continue
+
+            if line.startswith("}"):
+                context_block = False
+                continue
+
             # Person schedule start
             if line.startswith("["):
+                if context_block:
+                    errors.append(Rule("S10", line_number, "Persons schedules can not be placed in a context block."))
+                    continue
+
                 if inside_block:
                     errors.append(Rule("S04", line_number, "Persons schedules can not be nested"))
                     continue
@@ -66,12 +80,13 @@ class Validator:
                 continue
 
             # Entries can not be outside of a schedule
-            if not inside_block:
+            if not inside_block and not context_block:
                 errors.append(Rule("S08", line_number, "Schedule entry outside of schedule"))
                 continue
 
             # Walidacja wpisu
-            errors.extend(self._validate_entry(line, line_number))
+            if inside_block:
+                errors.extend(self._validate_entry(line, line_number))
 
         if inside_block:
             errors.append(Rule("S09", len(lines), "Unexpected end of file (no closing symbol found)"))

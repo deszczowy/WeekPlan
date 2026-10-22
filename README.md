@@ -5,7 +5,7 @@ The application runs as a Python script and requires an input file describing th
 
 > **Note:** A standalone executable version is planned for a future release.
 
-Version 1.1
+Version 1.2
 
 ## Table of Contents
 - [Requirements and installation](#requirements-and-installation)
@@ -133,7 +133,7 @@ Activities can be listed in any order - the script will place them right.
 The provided file will be checked for correct structure and data, so any errors will be described and marked, which will help create the file correctly.
 
 ## Command-Line Arguments
-The script supports the following command-line arguments:
+The script supports the following optional command-line arguments:
 
 | Argument | Short | Description |
 |---|---|---|
@@ -158,13 +158,12 @@ Generate a schedule and specify an output filename:
 python weekplan.py plan.txt --output school-plan
 ```
 
-## Standalone Version
-A standalone executable version is planned for a future release. It will allow users to run the application without installing Python separately.
-
-Until then, Python 3.x is required to run the script.
-
 ## Change Log
-Current version is 1.1.
+Current version is 1.2.
+
+### Ver. 1.2
+* Weekday names aliases now can be provided from an activity file.
+* Documentation updated
 
 ### Ver. 1.1
 * Schedule title can be placed on the sides of a print or be hidden with `--position` option.

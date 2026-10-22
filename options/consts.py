@@ -3,7 +3,15 @@ from .enum_sort import SortOrder
 from .enum_position import TitlePosition
 
 # Weekdays symbols
-WEEKDAYS = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"]
+WEEKDAYS = {
+    "MO": "MO",
+    "TU": "TU",
+    "WE": "WE",
+    "TH": "TH",
+    "FR": "FR",
+    "SA": "SA",
+    "SU": "SU"
+}
 
 TALK_MAPPER = {
     "none": LogLevel.SILENT,

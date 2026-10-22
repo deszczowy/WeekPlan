@@ -77,12 +77,15 @@ class Picture:
     def print_labels(self):
         draw = ImageDraw.Draw(self.image)
         start_line = self.m.MARGIN_LEFT + self.m.GUTTER
+        keys = list(WEEKDAYS.keys())
+        print(keys)
 
         for i in range(0, self.m.DAYS):
             xd = i * self.m.DAY_WIDTH
             x = start_line + xd
             y = 0
-            self.text(x, y, WEEKDAYS[i], 40)
+            day = keys[i]
+            self.text(x, y, WEEKDAYS[day], 40)
 
     def save(self):
         self.image.save(self.file_path)

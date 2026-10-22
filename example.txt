@@ -3,6 +3,16 @@
 
 # Empty line is not a valid line, so it does not count.
 Example Weekly Activities Plan
+# Below is the list of weekdays names aliases.
+{
+MO|Monday
+TU|Tuesday
+WE|Wednesday
+TH|Thursday
+FR|Friday
+SA|Saturday
+SU|Sunday
+}
 [#7CB4EF|Anna
 MO|800|845|Gym
 # Pipe character "|" is entry fields separator, so please don't us it in entry description.
