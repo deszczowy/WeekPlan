@@ -49,7 +49,7 @@ class Validator:
             # Person schedule start
             if line.startswith("["):
                 if context_block:
-                    errors.append(Rule("S10", line_number, "Persons schedules can not be placed in a context block."))
+                    errors.append(Rule("S10", line_number, "Persons schedules can not be placed in a context block"))
                     continue
 
                 if inside_block:
@@ -105,25 +105,25 @@ class Validator:
 
         if count != ENTRY_FIELDS_COUNT:
             return [
-                Rule("E01", line_number, "Entry has to have {0} fields separated by |, but {1} found".format(ENTRY_FIELDS_COUNT, count))
+                Rule("E01", line_number, "Entry has to have {0} fields, but {1} found".format(ENTRY_FIELDS_COUNT, count))
             ]
 
         day, start, end, description = fields
 
         # Week day
         if day not in DAYS:
-            errors.append(Rule("E02", line_number, f"Incorrect weekday symbol, {day!r} found."))
+            errors.append(Rule("E02", line_number, f"Incorrect weekday symbol, {day!r} found"))
 
         # Start time
         if not self._is_valid_time(start):
-            errors.append(Rule("E03", line_number, f"Incorrect time format, {start!r}."))
+            errors.append(Rule("E03", line_number, f"Incorrect time format, {start!r}"))
 
         # End time
         if not self._is_valid_time(end):
-            errors.append(Rule("E03", line_number, f"Incorrect time format, {end!r}."))
+            errors.append(Rule("E03", line_number, f"Incorrect time format, {end!r}"))
         
         if (int(end.zfill(4)) <= int(start.zfill(4))):
-            errors.append(Rule("E04", line_number, "End time must be later than the start time."))
+            errors.append(Rule("E04", line_number, "End time must be later than the start time"))
 
         # Description
         if len(description) > MAX_DESCRIPTION_LENGTH:
