@@ -11,6 +11,7 @@ class Options:
         # Schedule
         self.sort_order: SortOrder = SortOrder.ORIGINAL
         self.title_position: TitlePosition = TitlePosition.LEFT
+        self.background: str = None
 
         # Logging
         self.log_file: str = None
@@ -24,6 +25,7 @@ class Options:
         self._set_io(args.input, args.output)
         self._set_log(args.talk, args.logfile)
         self._set_printer(args.sort, args.position)
+        self._set_background_picture(args.background)
 
         if self.log_level == LogLevel.ALSO_DEBUG:
             print(args)
@@ -41,6 +43,9 @@ class Options:
     def _set_printer(self, sort_order: str, position: str) -> None:
         self._set_sort_order(sort_order)
         self._set_title_position(position)
+    
+    def _set_background_picture(self, background_file: str) -> None:
+        self.background = background_file
 
     #
     # Mappers

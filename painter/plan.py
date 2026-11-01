@@ -6,8 +6,8 @@ from .picture import Picture
 
 class Plan(Picture):
 
-    def __init__(self, options: Options, schedule: Schedule, logger: Logger, background="white"):
-        super().__init__(options.output_file_name, background)
+    def __init__(self, options: Options, schedule: Schedule, logger: Logger):
+        super().__init__(options.output_file_name, options.background)
         self.logger = logger
         self.options = options
         # We need full schedule to print the plan sheet

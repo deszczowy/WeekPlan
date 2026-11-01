@@ -1,5 +1,5 @@
-from PIL import Image, ImageDraw, ImageColor, ImageFont
-from options import WEEKDAYS
+from PIL import Image, ImageDraw, ImageColor, ImageFont, UnidentifiedImageError
+from options import Tool, WEEKDAYS
 from .measurements import Measurements
 
 class Picture:
@@ -7,15 +7,30 @@ class Picture:
     WIDTH = 3508
     HEIGHT = 2480
 
-    def __init__(self, file_path, background="white"):
+    def __init__(self, file_path, background=""):
         self.m = Measurements(3508, 2408)
         self.file_path = file_path
         self.font = "./res/noto-sans.regular.ttf"
-        self.image = Image.new(
-            "RGB",
-            (self.m.WIDTH, self.m.HEIGHT),
-            background
-        )
+        self.start_image(background)
+    
+    def start_image(self, background_file: str) -> None:
+        create_empty = True
+
+        if not Tool.string_null_or_empty(background_file):
+            try:
+                with Image.open(background_file) as pfile:
+                    pfile.verify()
+
+                with Image.open(background_file) as pfile:
+                    self.image = pfile.convert("RGB").resize((self.m.WIDTH, self.m.HEIGHT))
+                    create_empty = False
+
+            except (UnidentifiedImageError, OSError) as error:
+                print(f"File provided for background is not a valid picture: {background_file}")
+        
+        if create_empty:
+            self.image = Image.new("RGB", (self.m.WIDTH, self.m.HEIGHT), "white")
+
 
     def update_measurements_according_to_plan(self, number_of_days, number_of_persons, first_hour, last_hour):
         self.m.update_by_plan(number_of_persons, number_of_days, first_hour, last_hour)

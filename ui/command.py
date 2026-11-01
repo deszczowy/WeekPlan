@@ -25,6 +25,7 @@ class CommandLine:
         self._add_positional("input", "Path to file with activities description")
         self._add_str("-o", "--output", "Name of an output file. Optional, if not provided, input file name will be used")
         self._add_str("-l", "--logfile", "Name of a file where app log will be stored, beside the default console output")
+        self._add_str("-b", "--background", "Path to picture file to use as a schedule background")
         self._add_choice("-t", "--talk", TALK_MAPPER.keys(), "normal", "Provide custom level of app communication log")
         self._add_choice("-s", "--sort", SORT_MAPPER.keys(), "original", "Sorting order of people's plans by persons names")
         self._add_choice("-p", "--position", TITLE_POSITION_MAPPER.keys(), "left", "Position of schedule title on print")
@@ -58,7 +59,7 @@ class CommandLine:
         self.parser.add_argument(
             cshort, clong,
             type=str,
-            nargs=1,
+            nargs='?',
             default=None,
             help=description
         )

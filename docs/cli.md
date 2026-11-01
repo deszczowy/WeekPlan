@@ -42,6 +42,14 @@ Below example will produce `schedule-print.png` file, instead of default `my-pla
 weekplan my-plan.txt --output schedule-print
 ```
 
+### Background picture for schedule
+
+```
+--background
+-b
+```
+By default, the weekly plan is printed on a white canvas, but you can use this option to provide the script with a graphic file that will be inserted as a background for the activity chart. If the file is not a valid picture, the script will print appropriate information, but will proceed with the default settings.
+
 ### Logging destination file
 
 ```

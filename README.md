@@ -2,7 +2,7 @@
 
 <img align="right" src="/res/wp.png" width="200"> WeekPlan is a Python script for generating ready to print graphical weekly schedules from user-defined activities. Similar to a school timetable, it allows you to organize virtually any type of activities into a clear, visual weekly plan.
 
-Latest version is 1.2
+Latest version is 1.3
 
 ## Documentation
 - [Installation](docs/build.md)
@@ -31,14 +31,18 @@ The input file must follow the structure and formatting rules described in the [
 
 ## Change Log
 
+### Ver. 1.3
+* Adding background picture to schedule print.
+* Documentation updated.
+
 ### Ver. 1.2
 * Weekday names aliases now can be provided from an activity file.
-* Documentation updated
+* Documentation updated.
 
 ### Ver. 1.1
 * Schedule title can be placed on the sides of a print or be hidden with `--position` option.
 * Person sorting method can be provided with `--sort` parameter.
-* Documentation updated
+* Documentation updated.
 
 ## License
 WeekPlan is licensed under the MIT license, so go ahead and do whatever you want with this code. Enjoy!

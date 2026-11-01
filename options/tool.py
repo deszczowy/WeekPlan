@@ -9,3 +9,6 @@ class Tool:
         new_extension = new_extension.lstrip(".")
         new_path = path.with_suffix(f".{new_extension}")
         return str(new_path)
+    
+    def string_null_or_empty(string: str) -> bool:
+        return string is None or string.strip() == ""
