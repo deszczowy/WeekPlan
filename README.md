@@ -2,11 +2,7 @@
 
 <img align="right" src="/res/wp.png" width="200"> WeekPlan is a Python script for generating ready to print graphical weekly schedules from user-defined activities. Similar to a school timetable, it allows you to organize virtually any type of activities into a clear, visual weekly plan.
 
-The application runs as a Python script and requires an input file describing the activities to be scheduled.
-
-> **Note:** A standalone executable version is planned for a future release.
-
-Version 1.2
+Latest version is 1.2
 
 ## Documentation
 - [Installation](docs/build.md)
@@ -14,13 +10,14 @@ Version 1.2
 - [Activity File structure description](docs/file.md)
 
 ## Overview
-Run the script from a terminal using the following command:
+
+See [installation](docs/build.md) instruction to prepare the script, then run it from a terminal using the following command:
 
 ```bash
 python weekplan.py <input_file>
 ```
 
-Where `<input_file>` is the path to the file describing the weekly plan. In the result script will create `<input_file>.png` file with your weekly plan.
+Where `<input_file>` is the path to the file describing the weekly plan. In the result script will create `<input_file>.png` file with your weekly schedule print.
 
 In example:
 
@@ -29,11 +26,10 @@ python weekplan.py plan.txt
 ```
 will generate `plan.png` file next to the `plan.txt` file.
 
-The input file must follow the structure and formatting rules described in the [Activity File structure description](docs/file.md).
+The input file must follow the structure and formatting rules described in the [Activity File structure documentation](docs/file.md).
 
 
 ## Change Log
-Current version is 1.2.
 
 ### Ver. 1.2
 * Weekday names aliases now can be provided from an activity file.
@@ -45,4 +41,4 @@ Current version is 1.2.
 * Documentation updated
 
 ## License
-WeekPlan is licensed under the MIT license, so go ahead and do whatever You want with this code. Enjoy!
+WeekPlan is licensed under the MIT license, so go ahead and do whatever you want with this code. Enjoy!

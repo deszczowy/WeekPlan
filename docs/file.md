@@ -1,6 +1,6 @@
 # Activity File Description
 
-[go back to README](../README.md)
+[Back to README](../README.md)
 
 WeekPlan generates prints base on data provided with structured text file, which defines the main title, people included in schedule, and their activities. This document will help You create and maintain your activity file.
 
