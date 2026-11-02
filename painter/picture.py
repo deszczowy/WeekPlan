@@ -11,6 +11,7 @@ class Picture:
         self.m = Measurements(3508, 2408)
         self.file_path = file_path
         self.font = "./res/noto-sans.regular.ttf"
+        self.week_days = []
         self.start_image(background)
     
     def start_image(self, background_file: str) -> None:
@@ -92,15 +93,14 @@ class Picture:
     def print_labels(self):
         draw = ImageDraw.Draw(self.image)
         start_line = self.m.MARGIN_LEFT + self.m.GUTTER
-        keys = list(WEEKDAYS.keys())
-        print(keys)
 
         for i in range(0, self.m.DAYS):
             xd = i * self.m.DAY_WIDTH
             x = start_line + xd
             y = 0
-            day = keys[i]
-            self.text(x, y, WEEKDAYS[day], 40)
+            day = self.week_days[i] # symbol
+            label = WEEKDAYS[day] # full name
+            self.text(x, y, label, 40)
 
     def save(self):
         self.image.save(self.file_path)

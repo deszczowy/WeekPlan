@@ -1,7 +1,8 @@
 from datetime import datetime
 from planner import Schedule
-from options import Options, SortOrder, TitlePosition, WEEKDAYS
+from options import Options, SortOrder, TitlePosition, WeekDaysRange
 from .picture import Picture
+from .days import DaysSelector
 
 
 class Plan(Picture):
@@ -28,7 +29,12 @@ class Plan(Picture):
         self.set_time_offsets()
         self.set_number_of_persons()
         self.sort_persons()
-        self.update_measurements_according_to_plan(6, self.persons_no, self.first_hour, self.last_hour)
+        self.select_days()
+        self.update_measurements_according_to_plan(
+            self.week_days_no,
+            self.persons_no,
+            self.first_hour,
+            self.last_hour)
         self.build_days_offset_dictionary()
         self.logger.debug(self.m.print())
 
@@ -55,11 +61,19 @@ class Plan(Picture):
             self.persons.sort(reverse=False)
         if self.options.sort_order == SortOrder.Z_TO_A:
             self.persons.sort(reverse=True)
+    
+    def select_days(self) -> None:
+        self.week_days = DaysSelector(
+            self.options.days_range,
+            self.schedule).get()
+        self.week_days_no = len(self.week_days)
+        print(self.week_days)
+        print(self.week_days_no)
 
     def build_days_offset_dictionary(self):
         self.days_offsets = {}
         off = 0
-        for day in WEEKDAYS:
+        for day in self.week_days:
             self.days_offsets[day] = off * self.m.DAY_WIDTH
             off +=1
 
@@ -103,24 +117,25 @@ class Plan(Picture):
         self.rectangle(x, y, x + w, y + 30, fill=person.color)
         self.text(x + w + 10, y, person.name, 25)
 
-    def _print_activity(self, person, entry):
-        activity_width = self.m.DAY_WIDTH / self.m.PERSONS_COUNT
+    def _print_activity(self, person, entry) -> None:
 
-        x1 = self.m.MARGIN_LEFT + self.m.GUTTER + self.m.PADDING + self.days_offsets[entry.weekday]  + (activity_width * (person.order-1))
-        y1 = self.m.MARGIN_TOP + (entry.offset(self.m.FIRST_HOUR_TIME) * self.m.MINUTE)
+        if entry.weekday in self.days_offsets:
+            activity_width = self.m.DAY_WIDTH / self.m.PERSONS_COUNT
 
-        x2 = x1  + activity_width - (2 * self.m.PADDING)
-        y2 = y1 + (entry.duration() * self.m.MINUTE)
+            x1 = self.m.MARGIN_LEFT + self.m.GUTTER + self.m.PADDING + self.days_offsets[entry.weekday]  + (activity_width * (person.order-1))
+            y1 = self.m.MARGIN_TOP + (entry.offset(self.m.FIRST_HOUR_TIME) * self.m.MINUTE)
 
-        self.rectangle(x1, y1, x2, y2, fill=person.color)
+            x2 = x1  + activity_width - (2 * self.m.PADDING)
+            y2 = y1 + (entry.duration() * self.m.MINUTE)
 
-        x1 += self.m.PADDING
-        y1 += self.m.PADDING
-        self.text(x1, y1, entry.label, 30)
+            self.rectangle(x1, y1, x2, y2, fill=person.color)
 
-        y1 += self.m.PADDING + 35
-        t1 = entry.start.strftime("%H:%M")
-        t2 = entry.end.strftime("%H:%M")
-        label = "{0} - {1}".format(t1, t2)
-        self.text(x1, y1, label, 20)
-        pass
+            x1 += self.m.PADDING
+            y1 += self.m.PADDING
+            self.text(x1, y1, entry.label, 30)
+
+            y1 += self.m.PADDING + 35
+            t1 = entry.start.strftime("%H:%M")
+            t2 = entry.end.strftime("%H:%M")
+            label = "{0} - {1}".format(t1, t2)
+            self.text(x1, y1, label, 20)
