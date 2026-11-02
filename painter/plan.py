@@ -67,8 +67,6 @@ class Plan(Picture):
             self.options.days_range,
             self.schedule).get()
         self.week_days_no = len(self.week_days)
-        print(self.week_days)
-        print(self.week_days_no)
 
     def build_days_offset_dictionary(self):
         self.days_offsets = {}

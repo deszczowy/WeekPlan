@@ -32,6 +32,7 @@ The input file must follow the structure and formatting rules described in the [
 ## Change Log
 
 ### Ver. 1.3
+* Selecting days from schedule to print.
 * Adding background picture to schedule print.
 * Documentation updated.
 
