@@ -1,8 +1,12 @@
 from .enum_log import LogLevel
 from .enum_sort import SortOrder
 from .enum_position import TitlePosition
+from .enum_range import WeekDaysRange
 from .tool import Tool
-from .consts import TALK_MAPPER, SORT_MAPPER, TITLE_POSITION_MAPPER
+from .consts import (
+    TALK_MAPPER, SORT_MAPPER, TITLE_POSITION_MAPPER,
+    WEEKDAYS_RANGE_MAPPER
+)
 
 
 class Options:
@@ -11,6 +15,7 @@ class Options:
         # Schedule
         self.sort_order: SortOrder = SortOrder.ORIGINAL
         self.title_position: TitlePosition = TitlePosition.LEFT
+        self.days_range: WeekDaysRange = WeekDaysRange.ALL
         self.background: str = None
 
         # Logging
@@ -24,7 +29,7 @@ class Options:
     def update(self, args: Namespace) -> None:
         self._set_io(args.input, args.output)
         self._set_log(args.talk, args.logfile)
-        self._set_printer(args.sort, args.position)
+        self._set_printer(args.sort, args.position, args.range)
         self._set_background_picture(args.background)
 
         if self.log_level == LogLevel.ALSO_DEBUG:
@@ -40,9 +45,10 @@ class Options:
         self._set_log_level(log_level_name)
         self.log_file = log_file
     
-    def _set_printer(self, sort_order: str, position: str) -> None:
+    def _set_printer(self, sort_order: str, position: str, days_range: str) -> None:
         self._set_sort_order(sort_order)
         self._set_title_position(position)
+        self._set_weekdays_range(days_range)
     
     def _set_background_picture(self, background_file: str) -> None:
         self.background = background_file
@@ -67,6 +73,12 @@ class Options:
             self.title_position = TITLE_POSITION_MAPPER[input]
         else:
             self.title_position = TitlePosition.LEFT
+    
+    def _set_weekdays_range(self, input: str) -> None:
+        if input in WEEKDAYS_RANGE_MAPPER.keys():
+            self.days_range = WEEKDAYS_RANGE_MAPPER[input]
+        else:
+            self.days_range = WeekDaysRange.ALL
 
     def _set_output_file(self, output_file) -> None:
         output = output_file

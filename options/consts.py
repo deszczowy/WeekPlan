@@ -1,6 +1,7 @@
 from .enum_log import LogLevel
 from .enum_sort import SortOrder
 from .enum_position import TitlePosition
+from .enum_range import WeekDaysRange
 
 # Weekdays symbols
 WEEKDAYS = {
@@ -30,4 +31,12 @@ TITLE_POSITION_MAPPER = {
     "hidden": TitlePosition.HIDDEN,
     "left": TitlePosition.LEFT,
     "right": TitlePosition.RIGHT,
+}
+
+WEEKDAYS_RANGE_MAPPER = {
+    "workdays": WeekDaysRange.WORKDAYS,
+    "weekend": WeekDaysRange.WEEKEND,
+    "active": WeekDaysRange.ACTIVE,
+    "scope": WeekDaysRange.SCOPE,
+    "all": WeekDaysRange.ALL
 }

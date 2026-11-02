@@ -91,6 +91,24 @@ Detemines the sorting order for persons from the activity file. Sorting is done 
 
 Default is `original`.
 
+### Range of days
+
+```
+--range
+-r
+```
+By default, script prints all days of the week, even if no person has activities on them. You can change the range of days included into schedule print by using this command. Limiting the number of printed days can help make schedule more readable by increasing the width of the day columns.
+
+|Value|Description|
+|---|---|
+|`workdays`|Only days from monday to friday|
+|`weekend`|Skips working days|
+|`scope`|Prints only days from the first to the last day with activities|
+|`active`|Skips days without activities|
+|`all`|Print all days, no matter what|
+
+Default is `all`.
+
 ### Title position
 
 ```

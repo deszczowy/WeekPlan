@@ -1,5 +1,8 @@
 import argparse
-from options import Options, TALK_MAPPER, SORT_MAPPER, TITLE_POSITION_MAPPER
+from options import (Options,
+    TALK_MAPPER, SORT_MAPPER, TITLE_POSITION_MAPPER,
+    WEEKDAYS_RANGE_MAPPER
+)
 from .wrapper import Wrapper
 
 class CommandLine:
@@ -29,7 +32,7 @@ class CommandLine:
         self._add_choice("-t", "--talk", TALK_MAPPER.keys(), "normal", "Provide custom level of app communication log")
         self._add_choice("-s", "--sort", SORT_MAPPER.keys(), "original", "Sorting order of people's plans by persons names")
         self._add_choice("-p", "--position", TITLE_POSITION_MAPPER.keys(), "left", "Position of schedule title on print")
-        
+        self._add_choice("-r", "--range", WEEKDAYS_RANGE_MAPPER.keys(), "all", "Allows to select desirable range of days to print")
         self._add_version()
 
     #
