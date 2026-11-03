@@ -1,6 +1,6 @@
 from datetime import datetime
 from planner import Schedule
-from options import Options, SortOrder, TitlePosition, WeekDaysRange
+from options import Tool, Options, SortOrder, TitlePosition, WeekDaysRange
 from .picture import Picture
 from .days import DaysSelector
 
@@ -26,6 +26,7 @@ class Plan(Picture):
         # Done.
 
     def initial_setups(self):
+        self.person_color_is_dark = False
         self.set_time_offsets()
         self.set_number_of_persons()
         self.sort_persons()
@@ -81,6 +82,9 @@ class Plan(Picture):
             po += 1
             person = self.schedule.data[key]
             person.order = po
+
+            color = self.get_color(person.color)
+            self.person_color_is_dark = Tool.color_is_dark(color)
             for e in person.activities:
                 self._print_activity(person, e)
             self.print_person_description(person)
@@ -130,10 +134,10 @@ class Plan(Picture):
 
             x1 += self.m.PADDING
             y1 += self.m.PADDING
-            self.text(x1, y1, entry.label, 30)
+            self.text(x1, y1, entry.label, 30, self.person_color_is_dark)
 
             y1 += self.m.PADDING + 35
             t1 = entry.start.strftime("%H:%M")
             t2 = entry.end.strftime("%H:%M")
             label = "{0} - {1}".format(t1, t2)
-            self.text(x1, y1, label, 20)
+            self.text(x1, y1, label, 20, self.person_color_is_dark)

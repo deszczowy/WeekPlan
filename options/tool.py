@@ -12,3 +12,9 @@ class Tool:
     
     def string_null_or_empty(string: str) -> bool:
         return string is None or string.strip() == ""
+    
+    def color_is_dark(color) -> bool:
+        lumination = 128
+        r, g, b = color
+        value = (299 * r + 587 * g + 114 * b) / 1000
+        return value < lumination

@@ -20,7 +20,7 @@ TU|900|1015|Code, code, code!
 WE|855|940|Team meeting
 FR|1200|1300|Tennis practice
 ]
-[#AAFF00|Betty
+[#05875F|Betty
 MO|1600|1640|Painting class
 # Entry below has no description. It is valid entry and will show only hours.
 WE|1200|1310|

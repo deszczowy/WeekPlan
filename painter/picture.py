@@ -10,6 +10,8 @@ class Picture:
     def __init__(self, file_path, background=""):
         self.m = Measurements(3508, 2408)
         self.file_path = file_path
+        self.white = (255, 255, 255)
+        self.black = (0, 0, 0)
         self.font = "./res/noto-sans.regular.ttf"
         self.week_days = []
         self.start_image(background)
@@ -55,11 +57,12 @@ class Picture:
         )
 
     # Prints text on given position
-    def text(self, x, y, caption, size):
+    def text(self, x, y, caption, size, background_is_dark=False):
         draw = ImageDraw.Draw(self.image)
         ufont = ImageFont.truetype(self.font, size)
         p = (x, y)
-        draw.text(p, caption, fill="black", font=ufont)
+        front_color = self.white if background_is_dark else self.black
+        draw.text(p, caption, fill=front_color, font=ufont)
 
     # Measuring text length in pixels
     def text_length(self, text, size) -> int:
@@ -104,3 +107,6 @@ class Picture:
 
     def save(self):
         self.image.save(self.file_path)
+    
+    def get_color(self, color):
+        return ImageColor.getrgb(color)
