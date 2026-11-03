@@ -32,6 +32,8 @@ The input file must follow the structure and formatting rules described in the [
 ## Change Log
 
 ### Ver. 1.4
+* Activity caption wrapping parameter added.
+* Activity font color adjusting method added.
 
 ### Ver. 1.3
 * Selecting days from schedule to print.

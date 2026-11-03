@@ -2,6 +2,7 @@ from .enum_log import LogLevel
 from .enum_sort import SortOrder
 from .enum_position import TitlePosition
 from .enum_range import WeekDaysRange
+from .enum_wrapping import WrappingMethod
 
 # Weekdays symbols
 WEEKDAYS = {
@@ -39,4 +40,10 @@ WEEKDAYS_RANGE_MAPPER = {
     "active": WeekDaysRange.ACTIVE,
     "scope": WeekDaysRange.SCOPE,
     "all": WeekDaysRange.ALL
+}
+
+WRAPPING_METHOD_MAPPER = {
+    "cut": WrappingMethod.CUT,
+    "short": WrappingMethod.SHORT,
+    "multiline": WrappingMethod.MULTILINE
 }
