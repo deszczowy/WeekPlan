@@ -139,9 +139,10 @@ class Plan(Picture):
             y1 += self.m.PADDING
             
             caption = self.captions.get(entry.label, 30, activity_width)
-            self.paragraph(x1, y1, caption, 30, activity_space, self.person_color_is_dark)
+            caption_space = activity_space - 20
+            lines_added = self.paragraph(x1, y1, caption, 30, caption_space, self.person_color_is_dark)
 
-            y1 += self.m.PADDING + 35
+            y1 += self.m.PADDING + (lines_added * 35)
             t1 = entry.start.strftime("%H:%M")
             t2 = entry.end.strftime("%H:%M")
             label = "{0} - {1}".format(t1, t2)
