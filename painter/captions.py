@@ -73,12 +73,13 @@ class Captions:
         return ImageFont.truetype(self.font, size).getlength(text)
     
     def _get_part(self, font: ImageFont, text: str, limit: int) -> str:
+        text_width = font.getlength(text)
         text_length = len(text)
 
-        if text_length < limit:
+        if text_width < limit:
             return text
         else:
-            i = int((limit * text_length) / font.getlength(text))
+            i = int((limit * text_length) / text_width)
             result = text[:i]
             
             while True:
