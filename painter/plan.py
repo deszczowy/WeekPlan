@@ -3,6 +3,7 @@ from planner import Schedule
 from options import Tool, Options, SortOrder, TitlePosition, WeekDaysRange
 from .picture import Picture
 from .days import DaysSelector
+from .captions import Captions
 
 
 class Plan(Picture):
@@ -11,6 +12,7 @@ class Plan(Picture):
         super().__init__(options.output_file_name, options.background)
         self.logger = logger
         self.options = options
+        self.captions = Captions(self.options.wrapping_method, self.font)
         # We need full schedule to print the plan sheet
         self.schedule = schedule
         # We need to prepare printout based on the schedule
@@ -127,14 +129,17 @@ class Plan(Picture):
             x1 = self.m.MARGIN_LEFT + self.m.GUTTER + self.m.PADDING + self.days_offsets[entry.weekday]  + (activity_width * (person.order-1))
             y1 = self.m.MARGIN_TOP + (entry.offset(self.m.FIRST_HOUR_TIME) * self.m.MINUTE)
 
+            activity_space = entry.duration() * self.m.MINUTE
             x2 = x1  + activity_width - (2 * self.m.PADDING)
-            y2 = y1 + (entry.duration() * self.m.MINUTE)
+            y2 = y1 + (activity_space)
 
             self.rectangle(x1, y1, x2, y2, fill=person.color)
 
             x1 += self.m.PADDING
             y1 += self.m.PADDING
-            self.text(x1, y1, entry.label, 30, self.person_color_is_dark)
+            
+            caption = self.captions.get(entry.label, 30, activity_width)
+            self.paragraph(x1, y1, caption, 30, activity_space, self.person_color_is_dark)
 
             y1 += self.m.PADDING + 35
             t1 = entry.start.strftime("%H:%M")

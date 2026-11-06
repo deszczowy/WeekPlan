@@ -86,16 +86,41 @@ class Captions:
         return lines
     
     def _cut(self, font: ImageFont, text: str, limit_px: int) -> [str]:
-        return ["cut"]
+        caption = self._get_part(font, text, limit_px)
+        return [caption]
 
     def _short(self, font: ImageFont, text: str, limit_px: int) -> [str]:
-        return ["short"]
+        shortener = "..."
+        shortener_len = font.getlength(shortener)
+        part = self._get_part(font, text, limit_px - shortener_len)
+        caption = "{0}{1}".format(part, shortener)
+        return [caption]
 
     def _get_length(self, text: str, size: int) -> float:
         return ImageFont.truetype(self.font, size).getlength(text)
+    
+    def _get_part(self, font: ImageFont, text: str, limit: int) -> str:
+        text_length = len(text)
+        i = int((limit * text_length) / font.getlength(text))
+        result = text[:i]
+        
+        while True:
+            i += 1
+            new_str = text[:i]
+            if font.getlength(new_str) < limit:
+                result = new_str
+            else:
+                break
+        
+        return result
+
+        
+
+
+
 
 def captions():
-    c = Captions("w", "noto-sans.regular.ttf").get("Testing long activities names", 20, 200)
+    c = Captions("s", "noto-sans.regular.ttf").get("Testing long activities names", 20, 200)
     print(c)
 
 captions()

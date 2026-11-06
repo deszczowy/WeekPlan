@@ -18,7 +18,7 @@ MO|800|845|Gym
 # Pipe character "|" is entry fields separator, so please don't us it in entry description.
 TU|900|1015|Code, code, code!
 WE|855|940|Team meeting
-FR|1200|1300|Tennis practice
+FR|1200|1300|Tennis practice with friends
 ]
 [#05875F|Betty
 MO|1600|1640|Painting class

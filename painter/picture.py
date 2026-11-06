@@ -63,6 +63,18 @@ class Picture:
         p = (x, y)
         front_color = self.white if background_is_dark else self.black
         draw.text(p, caption, fill=front_color, font=ufont)
+    
+    def paragraph(self, x: int, y: int, lines: [str], size: int, available_space: int, background_is_dark: bool=False):
+        draw = ImageDraw.Draw(self.image)
+        ufont = ImageFont.truetype(self.font, size)
+        max_lines = int(available_space / size)
+        if max_lines == 0:
+            self.text(x, y, lines[0], size, background_is_dark)
+        else:
+            r = min(max_lines, len(lines))
+            for i in range(0, r):
+                self.text(x, y, lines[i], size, background_is_dark)
+                y += size
 
     # Measuring text length in pixels
     def text_length(self, text, size) -> int:
