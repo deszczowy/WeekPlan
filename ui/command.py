@@ -9,7 +9,7 @@ class CommandLine:
     def __init__(self):
 
         self.description = "Generating printable activities week plan."
-        self.version = "1.4"
+        self.version = "1.5"
 
         self._build_command_line()
         self._parse()        
